@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Demo/Demo.iml" filepath="$PROJECT_DIR$/Demo/Demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/circle-calculation/circle-calculation.iml" filepath="$PROJECT_DIR$/circle-calculation/circle-calculation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lesson5/lesson5.iml" filepath="$PROJECT_DIR$/lesson5/lesson5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lesson7 practice/lesson7 practice.iml" filepath="$PROJECT_DIR$/lesson7 practice/lesson7 practice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/module2.iml" filepath="$PROJECT_DIR$/module2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/static-method-test/static-method-test.iml" filepath="$PROJECT_DIR$/static-method-test/static-method-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/static-property-test/static-property-test.iml" filepath="$PROJECT_DIR$/static-property-test/static-property-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/student-info/student-info.iml" filepath="$PROJECT_DIR$/student-info/student-info.iml" />
+    </modules>
+  </component>
+</project>
