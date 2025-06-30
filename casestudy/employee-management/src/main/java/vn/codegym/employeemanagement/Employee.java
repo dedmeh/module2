@@ -7,6 +7,7 @@ public class Employee {
     private String email;
     private String phoneNumber;
 
+
     public Employee() {}
     public Employee(String name, int age, String address, String email, String phoneNumber) {
         this.name = name;
@@ -51,12 +52,4 @@ public class Employee {
         this.phoneNumber = phoneNumber;
     }
 
-    @Override
-    public String toString() {
-        return "{Tên:" + name +
-               ",Tuổi:" + age +
-               ",Địa chỉ:" + address +
-               ",Email:" + email +
-               "Số điện thoại:" + phoneNumber;
-    }
 }
