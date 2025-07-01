@@ -3,9 +3,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="315.0" prefWidth="436.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="572.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vn.codegym.employeemanagement.MainController">
    <children>
-      <Label prefHeight="101.0" prefWidth="188.0" />
+      <TableView fx:id="employeesTable" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="nameColumn" prefWidth="168.79998779296875" text="Name" />
+          <TableColumn fx:id="ageColumn" minWidth="0.0" prefWidth="36.60003662109375" text="Age" />
+            <TableColumn fx:id="addressColumn" prefWidth="147.39996337890625" text="Address" />
+            <TableColumn fx:id="emailColumn" prefWidth="96.20001220703125" text="Email" />
+            <TableColumn fx:id="phoneColumn" prefWidth="122.20001220703125" text="Phone number" />
+        </columns>
+      </TableView>
+      <HBox prefHeight="53.0" prefWidth="426.0">
+         <children>
+            <TextField fx:id="nameField" prefHeight="26.0" prefWidth="102.0" />
+            <TextField fx:id="ageField" prefHeight="26.0" prefWidth="73.0" />
+            <TextField fx:id="addressField" prefHeight="26.0" prefWidth="86.0" />
+            <TextField fx:id="emailField" prefHeight="26.0" prefWidth="102.0" />
+            <TextField fx:id="phoneField" prefHeight="26.0" prefWidth="96.0" />
+         </children></HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onAdd" text="Add" />
+            <Button mnemonicParsing="false" text="Delete" />
+            <Button mnemonicParsing="false" text="Edit" />
+         </children>
+      </HBox>
    </children>
 </VBox>

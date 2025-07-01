@@ -11,7 +11,7 @@ public class EmployeeManager {
         employeesList.add(e);
     }
 
-    public void removeEmployee(Employee e) {
+    public void deleteEmployee(Employee e) {
         employeesList.remove(e);
     }
 
