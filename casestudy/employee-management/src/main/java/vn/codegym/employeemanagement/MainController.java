@@ -46,6 +46,9 @@ public class MainController {
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
 
+        employeeManager.addEmployee(new Employee("Nguyen Van A", 30, "Hanoi", "a.nguyen@example.com", "0901234567"));
+        employeeManager.addEmployee(new Employee("Tran Thi B", 25, "Da Nang", "b.tran@example.com", "0912345678"));
+
         refreshTable();
     }
 
@@ -60,7 +63,9 @@ public class MainController {
 
             Employee newEmployee = new Employee(name, age, address, email, phoneNumber);
             employeeManager.addEmployee(newEmployee);
+
             refreshTable();
+            clearInput();
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
@@ -68,12 +73,38 @@ public class MainController {
 
     @FXML
     public void onEdit() {
-//        employeeManager.editEmployee();
+        Employee selectedEmployee = employeesTable.getSelectionModel().getSelectedItem();
+        if (selectedEmployee != null) {
+            try {
+                nameField.setText(selectedEmployee.getName());
+                ageField.setText(String.valueOf(selectedEmployee.getAge()));
+                addressField.setText(selectedEmployee.getAddress());
+                emailField.setText(selectedEmployee.getEmail());
+                phoneField.setText(selectedEmployee.getPhoneNumber());
+
+                String name = nameField.getText();
+                int age = Integer.parseInt(ageField.getText());
+                String address = addressField.getText();
+                String email = emailField.getText();
+                String phoneNumber = phoneField.getText();
+
+                employeeManager.editEmployee(selectedEmployee, name, age, address, email, phoneNumber);
+
+                refreshTable();
+                clearInput();
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
     public void onDelete() {
-//        employeeManager.deleteEmployee();
+        Employee selectedEmployee = employeesTable.getSelectionModel().getSelectedItem();
+        if (selectedEmployee != null) {
+            employeeManager.deleteEmployee(selectedEmployee);
+            refreshTable();
+        }
     }
 
     @FXML
@@ -84,6 +115,14 @@ public class MainController {
     private void refreshTable() {
         employeesList.setAll(employeeManager.getEmployeesList());
         employeesTable.setItems(employeesList);
+    }
+
+    private void clearInput() {
+        nameField.clear();
+        ageField.clear();
+        addressField.clear();
+        emailField.clear();
+        phoneField.clear();
     }
 
 }

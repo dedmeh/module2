@@ -35,6 +35,7 @@ public class EmployeeManager {
         List<Employee> result = new ArrayList<>();
         for(Employee e: employeesList) {
             if (e.getName().toLowerCase().contains(keyword.toLowerCase())) {
+
                 result.add(e);
             }
         }
@@ -44,4 +45,5 @@ public class EmployeeManager {
     public List<Employee> getEmployeesList() {
         return employeesList;
     }
+
 }
