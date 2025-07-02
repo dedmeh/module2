@@ -3,12 +3,18 @@ package vn.codegym.employeemanagement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.util.Optional;
+
 public class MainController {
+
+    private EmployeeManager employeeManager;
+    public void setEmployeeManager(EmployeeManager employeeManager) {
+        this.employeeManager = employeeManager;
+        refreshTable();
+    }
     @FXML
     private TableView<Employee> employeesTable;
     @FXML
@@ -35,7 +41,6 @@ public class MainController {
     @FXML
     private TextField searchField;
 
-    private final EmployeeManager employeeManager = new EmployeeManager();
     private final ObservableList<Employee> employeesList = FXCollections.observableArrayList();
 
     @FXML
@@ -46,27 +51,43 @@ public class MainController {
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
 
-        employeeManager.addEmployee(new Employee("Nguyen Van A", 30, "Hanoi", "a.nguyen@example.com", "0901234567"));
-        employeeManager.addEmployee(new Employee("Tran Thi B", 25, "Da Nang", "b.tran@example.com", "0912345678"));
-
-        refreshTable();
     }
 
     @FXML
     public void onAdd() {
         try {
             String name = nameField.getText();
-            int age = Integer.parseInt(ageField.getText());
+            String ageText = ageField.getText();
             String address = addressField.getText();
             String email = emailField.getText();
             String phoneNumber = phoneField.getText();
 
+            int age = 0;
+            try {
+                age = Integer.parseInt(ageText);
+                if (!EmployeeValidator.validateAge(age)) {
+                    showAlert("Validation error", "Please enter a valid age");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            if (!EmployeeValidator.validateEmail(email)) {
+                showAlert("Validation error", "Please enter a valid email");
+                return;
+            }
+            if (!EmployeeValidator.validatePhone(phoneNumber)) {
+                showAlert("Validation error", "Please enter a valid phone number");
+                return;
+            }
+
             Employee newEmployee = new Employee(name, age, address, email, phoneNumber);
             employeeManager.addEmployee(newEmployee);
 
+
             refreshTable();
             clearInput();
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -102,14 +123,10 @@ public class MainController {
     public void onDelete() {
         Employee selectedEmployee = employeesTable.getSelectionModel().getSelectedItem();
         if (selectedEmployee != null) {
+
             employeeManager.deleteEmployee(selectedEmployee);
             refreshTable();
         }
-    }
-
-    @FXML
-    public void onSearch() {
-
     }
 
     private void refreshTable() {
@@ -125,4 +142,34 @@ public class MainController {
         phoneField.clear();
     }
 
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public boolean confirmSave() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK && result.isPresent() ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @FXML
+    public void onSave() {
+        boolean shouldSave = confirmSave();
+        if (shouldSave) {
+            employeeManager.saveToFile("employees.dat");
+            showAlert("Save successful", "Employee data saved successfully");
+        }
+    }
 }
